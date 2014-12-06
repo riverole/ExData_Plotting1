@@ -1,0 +1,14 @@
+plot3 <- function() {
+  house <- read.csv("household_power_consumption.txt", sep = ";")
+  housefeb <- subset(house, house$Date == "1/2/2007" | house$Date == "2/2/2007")
+  housefeb$Time <- paste(housefeb$Date, housefeb$Time)
+  housefeb$Time <- strptime(housefeb$Time, "%d/%m/%Y %H:%M:%S")
+  housefeb$Global_active_power <- as.numeric(as.character(housefeb$Global_active_power))
+  housefeb$Sub_metering_1 <- as.numeric(as.character(housefeb$Sub_metering_1))
+  housefeb$Sub_metering_2 <- as.numeric(as.character(housefeb$Sub_metering_2))
+  housefeb$Sub_metering_3 <- as.numeric(as.character(housefeb$Sub_metering_3))
+  plot(housefeb$Time, housefeb$Sub_metering_1, ylab = "Energy sub metering", xlab = "" , type = "l")
+  points(housefeb$Time, housefeb$Sub_metering_2, col = "red", type = "l")
+  points(housefeb$Time, housefeb$Sub_metering_3, col = "blue", type = "l")
+  legend(x = "topright", legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), col = c("black", "red", "blue"), cex = 0.7, lwd=2)
+}
